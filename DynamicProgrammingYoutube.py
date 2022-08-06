@@ -109,12 +109,47 @@ def how_sum_memo(target_sum,arr):
         return None
     return how_sum_memo_inner(target_sum,arr)
 
-print ("how_sum_memo(7,[2,3]) ",how_sum_memo(7,[2,3]))
-print ("how_sum_memo(7,[5,3,4,7]) ",how_sum_memo(7,[5,3,4,7]))
-print ("how_sum_memo(7,[2,4]) ",how_sum_memo(7,[2,4]))
-print ("how_sum_memo(8,[2,3,5]) ",how_sum_memo(8,[2,3,5]))
-print ("how_sum_memo(8,[3,5,2]) ",how_sum_memo(8,[3,5,2]))
-print ("how_sum_memo(300,[7,14]) ",how_sum_memo(300,[7,14]) )
+# print ("how_sum_memo(7,[2,3]) ",how_sum_memo(7,[2,3]))
+# print ("how_sum_memo(7,[5,3,4,7]) ",how_sum_memo(7,[5,3,4,7]))
+# print ("how_sum_memo(7,[2,4]) ",how_sum_memo(7,[2,4]))
+# print ("how_sum_memo(8,[2,3,5]) ",how_sum_memo(8,[2,3,5]))
+# print ("how_sum_memo(8,[3,5,2]) ",how_sum_memo(8,[3,5,2]))
+# print ("how_sum_memo(300,[7,14]) ",how_sum_memo(300,[7,14]) )
 
 
-#Me task with repeation   ??
+#Me task with no repeation   ??
+
+
+
+#Best Sum Problem 
+def best_sum(target_sum,arr):
+    def best_sum_memo(target_sum,arr,memo={}):
+        if target_sum in memo:
+            return memo[target_sum]
+
+        if target_sum==0:
+            return []
+        if target_sum <0:
+            return None
+        
+        shortest_combination =None
+
+        for i in arr:
+            remainder=target_sum-i
+
+            memo[target_sum]=best_sum_memo(remainder,arr,memo)
+            if type(memo[target_sum])==list:
+                combination= [*memo[target_sum],i]
+                if shortest_combination is None or len(combination)<len(shortest_combination):
+                    shortest_combination=combination
+
+        memo[target_sum]=  shortest_combination  
+        return memo[target_sum]
+    return best_sum_memo(target_sum,arr)
+
+print("best_sum(7,[5,3,4,7])",best_sum(7,[5,3,4,7]))
+print("best_sum(8,[2,3,5])",best_sum(8,[2,3,5]))
+print("best_sum(8,[1,4,5])",best_sum(8,[1,4,5]))
+print("best_sum(100,[1,2,5,25])",best_sum(100,[1,2,5,25]))
+print("best_sum(100,[12,34])",best_sum(100,[12,34]))
+print("best_sum(1000,[12,45,50,12,100,124,34])",best_sum(1000,[12,45,50,12,100,124,34]))
