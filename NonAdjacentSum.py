@@ -196,20 +196,48 @@ def getMaxAndAssign(sumi,maxsum):
     return result
 #arr = list(map(int, input().rstrip().split()))
 
+
+def maxSubsetSum_recursive(arr):
+    print("Arr ",arr)
+    if len(arr)==0:
+        return 0
+
+    maxsum=0
+    for i,elem in enumerate(arr):
+        res,sum=0,0
+        if i+2<len(arr):
+            sum=elem+arr[i+2]
+            newarr=arr[i+2:]
+            res=maxSubsetSum_recursive(newarr)
+            print("Current Sum ",sum," Max Sum ",maxsum)
+        if sum>maxsum:
+            print("Current Sum ",sum," Max Sum ",maxsum,"Assignig here ")
+            maxsum+=sum
+            print("### Having == ",maxsum)
+            
+        #print("New Array: " + str(newarr),maxsum)
+        return res
+        
+        print("Max maxsum " , maxsum)
+    
+
+    return maxsum
+
 def evaluate(indata,expected):
     arr = list(map(int, indata.rstrip().split()))
-    res = maxSubsetSumv3(arr)
+    #res = maxSubsetSumv3(arr)
+    res = maxSubsetSum_recursive(arr)
     print("####### Sums max= Expected ",expected," Answer= ",res)
 
 
 indata="3 7 4 6 5"
 evaluate(indata,"13")
 
-indata="2 1 5 8 4"
-evaluate(indata,"11")
+# indata="2 1 5 8 4"
+# evaluate(indata,"11")
 
-indata="3 5 -7 8 10"
-evaluate(indata,"15")
+# indata="3 5 -7 8 10"
+# evaluate(indata,"15")
 
 # indata="5232 5859 2431 -4798 -4774 -7126 -1657 7743 -5529 -5855 3903 -2180 -1602 6777 -5136 -5800 -1242 3360 -4480 6968 3703 8163 -2391 -9601 7161 -3725 1787 5631 -2779 6607 7928 1011 -4715 -132 375 -4110 965 -9266 -7403 -9016 -517 -807 7710 4483 4361 -3218 -2060 -2608 -2978 8463 479 -8309 -6347 8945 6002 657 1741 3030 -6217 8566 -7492 5760 546 8073"
 # evaluate(indata,"big")
