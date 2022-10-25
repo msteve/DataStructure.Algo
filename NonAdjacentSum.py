@@ -1,6 +1,35 @@
 from itertools import combinations
 import datetime
 
+# Given an array of integers, find the subset of non-adjacent elements with the maximum sum. Calculate the sum of that subset. It is possible that the maximum sum is , the case when all elements are negative.
+
+# Example
+# The following subsets with more than  element exist. These exclude the empty subset and single element subsets which are also valid.
+
+# Subset      Sum
+# [-2, 3, 5]   6
+# [-2, 3]      1
+# [-2, -4]    -6
+# [-2, 5]      3
+# [1, -4]     -3
+# [1, 5]       6
+# [3, 5]       8
+# The maximum subset sum is . Note that any individual element is a subset as well.
+
+# In this case, it is best to choose no element: return .
+
+# Function Description
+
+# Complete the  function in the editor below.
+
+# maxSubsetSum has the following parameter(s):
+
+# int arr[n]: an array of integers
+# Returns
+# - int: the maximum subset sum
+
+# Input Format
+
 # Complete the maxSubsetSum function below.
 def maxSubsetSum(arr):
     now=datetime.datetime.now()
@@ -197,10 +226,12 @@ def getMaxAndAssign(sumi,maxsum):
 #arr = list(map(int, input().rstrip().split()))
 
 
-def maxSubsetSum_recursive(arr):
+def maxSubsetSum_recursive(target_sum,arr):
     print("Arr ",arr)
-    if len(arr)==0:
+    if len(arr)<=0:
         return 0
+    # if len(arr)>1:
+    #     return target_sum
 
     maxsum=0
     for i,elem in enumerate(arr):
@@ -208,15 +239,20 @@ def maxSubsetSum_recursive(arr):
         if i+2<len(arr):
             sum=elem+arr[i+2]
             newarr=arr[i+2:]
-            res=maxSubsetSum_recursive(newarr)
+            res=maxSubsetSum_recursive(maxsum,newarr)
             print("Current Sum ",sum," Max Sum ",maxsum)
-        if sum>maxsum:
-            print("Current Sum ",sum," Max Sum ",maxsum,"Assignig here ")
-            maxsum+=sum
-            print("### Having == ",maxsum)
-            
-        #print("New Array: " + str(newarr),maxsum)
-        return res
+            if sum>0:
+                print("Res=",res)
+                if res> max(maxsum if maxsum else [0]):
+                    print("Current Sum ",sum," Max Sum ",maxsum,"Assignig here ")
+                    maxsum+=sum
+                    #maxsum.append(sum)
+                    print("### Having == ",maxsum)
+
+            #res=maxSubsetSum_recursive(maxsum,newarr)
+                
+            #print("New Array: " + str(newarr),maxsum)
+            #return maxSubsetSum_recursive(maxsum,newarr)
         
         print("Max maxsum " , maxsum)
     
@@ -226,7 +262,7 @@ def maxSubsetSum_recursive(arr):
 def evaluate(indata,expected):
     arr = list(map(int, indata.rstrip().split()))
     #res = maxSubsetSumv3(arr)
-    res = maxSubsetSum_recursive(arr)
+    res = maxSubsetSum_recursive(0,arr)
     print("####### Sums max= Expected ",expected," Answer= ",res)
 
 

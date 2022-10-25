@@ -75,11 +75,11 @@ def howSum(targetSum,arr):#memo={}
 #memorized
 #time: O(n*m^2)
 #space: O(m^2)
-# print ("howSum(7,[2,3]) ",howSum(7,[2,3]))
-# print ("howSum(7,[5,3,4,7]) ",howSum(7,[5,3,4,7]))
-# print ("howSum(7,[2,4]) ",howSum(7,[2,4]))
-# print ("howSum(8,[2,3,5]) ",howSum(8,[2,3,5]))
-# print ("howSum(8,[3,5,2]) ",howSum(8,[3,5,2]))
+print ("howSum(7,[2,3]) ",howSum(7,[2,3]))
+print ("howSum(7,[5,3,4,7]) ",howSum(7,[5,3,4,7]))
+print ("howSum(7,[2,4]) ",howSum(7,[2,4]))
+print ("howSum(8,[2,3,5]) ",howSum(8,[2,3,5]))
+print ("howSum(8,[3,5,2]) ",howSum(8,[3,5,2]))
 # print("howSum(300,[7,14]) ",howSum(300,[7,14]) )
 
  #memo   
@@ -111,9 +111,9 @@ def how_sum_memo(target_sum,arr):
         return None
     return how_sum_memo_inner(target_sum,arr)
 
-# print ("how_sum_memo(7,[2,3]) ",how_sum_memo(7,[2,3]))
-# print ("how_sum_memo(7,[5,3,4,7]) ",how_sum_memo(7,[5,3,4,7]))
-# print ("how_sum_memo(7,[2,4]) ",how_sum_memo(7,[2,4]))
+print ("how_sum_memo(7,[2,3]) ",how_sum_memo(7,[2,3]))
+print ("how_sum_memo(7,[5,3,4,7]) ",how_sum_memo(7,[5,3,4,7]))
+print ("how_sum_memo(7,[2,4]) ",how_sum_memo(7,[2,4]))
 # print ("how_sum_memo(8,[2,3,5]) ",how_sum_memo(8,[2,3,5]))
 # print ("how_sum_memo(8,[3,5,2]) ",how_sum_memo(8,[3,5,2]))
 # print ("how_sum_memo(300,[7,14]) ",how_sum_memo(300,[7,14]) )
@@ -140,6 +140,7 @@ def best_sum(target_sum,arr):
             remainder=target_sum-i
 
             memo[target_sum]=best_sum_memo(remainder,arr,memo)
+
             if type(memo[target_sum])==list:
                 combination= [*memo[target_sum],i]
                 if shortest_combination is None or len(combination)<len(shortest_combination):
@@ -149,8 +150,8 @@ def best_sum(target_sum,arr):
         return memo[target_sum]
     return best_sum_memo(target_sum,arr)
 
-# print("best_sum(7,[5,3,4,7])",best_sum(7,[5,3,4,7]))
-# print("best_sum(8,[2,3,5])",best_sum(8,[2,3,5]))
+print("best_sum(7,[5,3,4,7])",best_sum(7,[5,3,4,7]))
+print("best_sum(8,[2,3,5])",best_sum(8,[2,3,5]))
 # print("best_sum(8,[1,4,5])",best_sum(8,[1,4,5]))
 # print("best_sum(100,[1,2,5,25])",best_sum(100,[1,2,5,25]))
 # print("best_sum(100,[12,34])",best_sum(100,[12,34]))
@@ -276,8 +277,8 @@ def all_construct(target_str, arr):
 
 
 # print("###all_construct###")
-# print ("all_construct('purple',['purp','p','ur','le','purpl'])",all_construct('purple',['purp','p','ur','le','purpl']))
-# print ("all_construct('abcdef',['ab','abc','cd','def','abcd','ef','c])",all_construct('abcdef',['ab','abc','cd','def','abcd','ef','c']))
+print ("all_construct('purple',['purp','p','ur','le','purpl'])",all_construct('purple',['purp','p','ur','le','purpl']))
+print ("all_construct('abcdef',['ab','abc','cd','def','abcd','ef','c])",all_construct('abcdef',['ab','abc','cd','def','abcd','ef','c']))
 # print ("all_construct('skateboard',['bo','rd','ate','t','ska','sk','boar'])",all_construct('skateboard',['bo','rd','ate','t','ska','sk','boar']))
 # print ("all_construct('enterapotentpot',['a','p','ent','enter','ot','o','t'])",all_construct('enterapotentpot',['a','p','ent','enter','ot','o','t']))
 
@@ -321,7 +322,6 @@ def fibonacci_memoize(n):
         #return fibonacci_memoize_inner(n-1)+fibonacci_memoize_inner(n-2)
         memo[n]= fibonacci_memoize_inner(n-1,memo)+fibonacci_memoize_inner(n-2,memo)
         return memo[n]
-
 
     return fibonacci_memoize_inner(n)
 
