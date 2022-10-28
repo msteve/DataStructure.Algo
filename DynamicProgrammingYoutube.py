@@ -3,7 +3,9 @@
 #Given an arayy and number n return if any numbers can in array can be added to make
 #the number n
 
+from ctypes.wintypes import tagMSG
 import re
+from collections import defaultdict
 
 
 
@@ -336,15 +338,119 @@ print('fibonacci_memoize(8)',fibonacci_memoize(8))
 print('fibonacci_memoize(50)',fibonacci_memoize(50))
 
 
-#Grid traveller tabulation
-def grid_traveller(m,n):
-    table=[ [0]*m for _ in range(n) ]
+def grid_traveller_memoize(m,n):
+    def grid_traveller_memoize_inner(m,n,memo={}):
+        key=str(m)+'_'+str(n)
+        if key in memo:
+            return memo[key]
+
+        if m ==0 or n ==0:
+            return 0
+        if m ==1 and n ==1:
+            return 1
+        memo[key]=  grid_traveller_memoize_inner(m-1,n,memo)+grid_traveller_memoize_inner(m,n-1,memo)
+        return memo[key]
+
+    return grid_traveller_memoize_inner(m,n)
+    
+
+#Grid traveller tabulation  Also check the JS file
+def grid_traveller_tab(m,n):
+    table=[ [0]*(m+1) for _ in range(n+1) ]
+    #table=defaultdict(lambda:[0,0])
+
+    print(table)
+    table[1][1]=1
+    #print(table[2][1])
+    for i in range(m+1):
+        for j in range(n+1):
+
+            current=table[i][j]
+            if j+1 <=n:
+                #print("j=",j,"j+1=",(j+1),table[i],len(table[i]))
+                table[i][j+1]+=current
+
+            if i+1 <=m:    
+                table[i+1][j]+=current
 
     #table[1][1]=1#
-    print(table)
+    #print(table)
+
+    print("m=",m,"n=",n)
+    return table[m-1][n-1]
 
 
-    return ""
+print("grid_traveller_memoize(1,1)",grid_traveller_memoize(1,1)) #1
+print("grid_traveller_memoize(2,3)",grid_traveller_memoize(2,3)) #3
+print("grid_traveller_memoize(3,2)",grid_traveller_memoize(3,2)) #3
+print("grid_traveller_memoize(3,3)",grid_traveller_memoize(3,3)) #6
+print("grid_traveller_memoize(18,18)",grid_traveller_memoize(18,18)) #233360
 
-#print("grid_traveller(1,1)",grid_traveller(1,1))
-#print("grid_traveller(2,3)",grid_traveller(2,3))
+
+# print("grid_traveller_tab(1,1)",grid_traveller_tab(1,1)) #1
+# print("grid_traveller_tab(2,3)",grid_traveller_tab(2,3)) #3
+# print("grid_traveller_tab(3,2)",grid_traveller_tab(3,2)) #3
+# print("grid_traveller_tab(3,3)",grid_traveller_tab(3,3)) #6
+# print("grid_traveller_tab(18,18)",grid_traveller_tab(18,18)) #233360
+
+
+
+def canSum(target_sum, arr):
+    
+
+    def canSum_memo(target_sum,arr,memo={}):
+
+        if target_sum in memo:
+            return memo[target_sum]
+
+        if target_sum==0:
+            return True
+
+        if target_sum < 0:
+            return False
+
+        combinations=[]
+        
+        for i in arr:
+
+            remainder= target_sum-i
+            if remainder==0:
+                return True
+
+            memo[target_sum]= canSum_memo(remainder,arr,memo)
+            if memo[target_sum]:
+                return memo[target_sum] 
+
+        return False
+
+    return canSum_memo(target_sum,arr)
+
+print("canSum(7,[5,3,4,7]) ",canSum(7,[5,3,4,7]))#True
+print("canSum(7,[2,3]) ",canSum(7,[2,3])) #True
+print("canSum(7,[2,4]) ",canSum(7,[2,4]))#false
+print("canSum(8,[2,3,5]) ",canSum(8,[2,3,5]))#true
+print("canSum(300,[7,14]) ",canSum(300,[7,14]))#false
+
+
+def canSum_tab(target_sum, arr):
+    table=[ False for _ in range(target_sum+1) ]
+    #print(table)
+
+    table[0]=True
+
+    for i in range(target_sum):
+        if (table[i]==True):
+            for j in arr:
+                #print(table,i+j)
+                if i+j< len(table):
+                    table[i+j]=True
+
+
+    return table[target_sum]
+
+
+print("canSum_tab(7,[5,3,4,7]) ",canSum_tab(7,[5,3,4,7]))#True
+print("canSum_tab(7,[2,3]) ",canSum_tab(7,[2,3])) #True
+print("canSum_tab(7,[2,4]) ",canSum_tab(7,[2,4]))#false
+print("canSum_tab(8,[2,3,5]) ",canSum_tab(8,[2,3,5]))#true
+print("canSum_tab(300,[7,14]) ",canSum_tab(300,[7,14]))#false

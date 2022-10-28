@@ -1,5 +1,11 @@
-# Given an array of integers, transform it so that at least a certain number of elements in the array are equal. To achieve this, you can perform an operation where you select an element in the array and divide it by the given division parameter using integer division. What is the minimum number of operations that must be performed to achieve this goal on a certain array?
-# For example, let's say arr = [1, 2, 3, 4, 5). The desired number of equal elements is denoted as threshold = 3, and the division parameter is d = 2. If you divide the value 4 once and the value 5 once using integer division, you get the array [1, 2, 3, 2, 2], which contains 3 equal elements. There is no way to achieve this in less than 2 operations. Therefore, the answer is 2.
+# Given an array of integers, transform it so that at least a certain number of elements in the array are equal. 
+# To achieve this, you can perform an operation where you select an element in the array and divide it by the given
+#  division parameter using integer division. What is the minimum number of operations that must be performed to
+#  achieve this goal on a certain array?
+# For example, let's say arr = [1, 2, 3, 4, 5). The desired number of equal elements is denoted as threshold = 3, 
+# and the division parameter is d = 2. If you divide the value 4 once and the value 5 once using integer division, 
+# you get the array [1, 2, 3, 2, 2], which contains 3 equal elements. There is no way to achieve this in less
+#  than 2 operations. Therefore, the answer is 2.
 
 # Function Description 
 # Complete the function min Operations in the editor below.
@@ -38,33 +44,43 @@ def minOperations(arr, threshold, d):
     for x in arr:
         steps = 0
         while True:
+            print("before x= ",x,dp[x])
             dp[x][0] += 1
             dp[x][1] += steps
+            print("After x= ",x,dp[x])
             if dp[x][0] >= threshold:
+                print("After x= ",x,dp[x]," threshold ",threshold)
                 ans = min(ans, dp[x][1])
+                print("After Ans ",ans)
             if x == 0:
                 break
             x //= d
+            print("New x ",x)
             steps += 1
+    print(dp)
     return ans
 
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+# if __name__ == '__main__':
+#     fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    arr_count = int(input().strip())
+#     arr_count = int(input().strip())
 
-    arr = []
+#     arr = []
 
-    for _ in range(arr_count):
-        arr_item = int(input().strip())
-        arr.append(arr_item)
+#     for _ in range(arr_count):
+#         arr_item = int(input().strip())
+#         arr.append(arr_item)
 
-    threshold = int(input().strip())
+#     threshold = int(input().strip())
 
-    d = int(input().strip())
+#     d = int(input().strip())
 
-    result = minOperations(arr, threshold, d)
+#     result = minOperations(arr, threshold, d)
 
-    fptr.write(str(result) + '\n')
+#     fptr.write(str(result) + '\n')
 
-    fptr.close()
+#     fptr.close()
+
+
+print("minOperations([1, 2, 3, 4, 5],3,2)",minOperations([1, 2, 3, 4, 5],3,2))
+print("minOperations([64,30,25,33],2,2)",minOperations([64,30,25,33],2,2))

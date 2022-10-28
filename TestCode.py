@@ -46,7 +46,7 @@ def is_prime_number(x):
                 return False
     else:
 	    return False
-    return True
+    #return True
 
 def v2_isprime(n):
 
