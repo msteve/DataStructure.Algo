@@ -47,7 +47,6 @@ def generate_secret():
     token = codecs.decode(totp.generate(seed), encoding="utf-8")
     return f"{token}-{seed}"
 
-
 if __name__ == "__main__":
     sys.stdout.write(
         f"Please head to https://ramp.com/careers and use this secret when "
