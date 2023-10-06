@@ -346,7 +346,7 @@ def grid_traveller_memoize(m,n):
 
         if m ==0 or n ==0:
             return 0
-        if m ==1 and n ==1:
+        if m ==1 or n ==1:
             return 1
         memo[key]=  grid_traveller_memoize_inner(m-1,n,memo)+grid_traveller_memoize_inner(m,n-1,memo)
         return memo[key]
