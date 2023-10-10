@@ -10,8 +10,9 @@ def extract_data(html):
     # Modify this part based on the structure of the HTML on the webpage
     title = soup.title.text if soup.title else "No Title"
     content = soup.find('body').text.strip() if soup.find('body') else "No Content"
-    href = soup.find('a') .get("href") if soup.find('a') else ""
-    d= {'title': title, 'content': content,"href":href}
+    #href = soup.find('a') .get("href") if soup.find('a') else ""
+    href = [a.get("href") for a in soup.select('body a')]  if soup.select('body a') else []
+    d= {'title': title, 'content': content,"href":" ".join(href)}
     #print("result",d)
     return d
 
